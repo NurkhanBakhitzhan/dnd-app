@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Присоединиться к игре</title>
+</head>
+<body>
+    <h1>Выберите сессию для подключения</h1>
+    
+    <ul id="session-list">
+        <!-- Здесь будет динамически обновляемый список сессий -->
+    </ul>
+
+    <p id="no-sessions-message" style="display: none;">Нет доступных сессий. Создайте новую игру.</p>
+    
+    <script>
+        // Функция для получения и обновления списка сессий
+        function updateSessions() {
+            fetch('/sessions') // AJAX-запрос на сервер
+                .then(response => response.json()) // Преобразуем ответ в JSON
+                .then(data => {
+                    const sessionList = document.getElementById('session-list');
+                    const noSessionsMessage = document.getElementById('no-sessions-message');
+                    
+                    sessionList.innerHTML = ''; // Очищаем список перед обновлением
+                    
+                    if (data.sessions.length > 0) {
+                        noSessionsMessage.style.display = 'none'; // Прячем сообщение о пустом списке
+                        data.sessions.forEach(session => {
+                            const li = document.createElement('li');
+                            li.textContent = `Сессия ID: ${session.id}, Host: ${session.host}`;
+                            sessionList.appendChild(li);
+                        });
+                    } else {
+                        noSessionsMessage.style.display = 'block'; // Показываем сообщение о пустом списке
+                    }
+                })
+                .catch(error => console.error('Ошибка при загрузке сессий:', error));
+        }
+
+        // Автоматически обновляем список сессий каждые 5 секунд
+        setInterval(updateSessions, 5000);
+
+        // Сразу загружаем список при загрузке страницы
+        updateSessions();
+    </script>
+
+    <p><a href="/create-game">Создать новую игру</a></p>
+
+    <footer>© 2024 D&D Board Game</footer>
+</body>
+</html>

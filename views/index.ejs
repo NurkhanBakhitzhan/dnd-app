@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+</head>
+<body>
+    <h1>Добро пожаловать на D&D игровую доску!</h1>
+    <p>Зарегистрируйтесь или войдите в систему, чтобы присоединиться к игре или создать свою сессию.</p>
+
+    <!-- Отображение активных сессий -->
+    <h2>Текущие сессии:</h2>
+    <ul>
+        <% if (sessions && sessions.length > 0) { %>
+            <% sessions.forEach(session => { %>
+                <li><strong>Сессия:</strong> <%= session.name %> | <strong>Игроков:</strong> <%= session.players.length %></li>
+            <% }) %>
+        <% } else { %>
+            <li>Нет активных сессий в данный момент</li>
+        <% } %>
+    </ul>
+
+    <p><a href="/login">Войти</a> или <a href="/register">Зарегистрироваться</a>, чтобы создать свою игру или присоединиться к существующей!</p>
+</body>
+</html>

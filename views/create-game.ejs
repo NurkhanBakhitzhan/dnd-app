@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать игру</title>
+</head>
+<body>
+    <h1>Создать новую игру</h1>
+    <form action="/create-game" method="POST">
+        <label for="host">Имя ведущего:</label>
+        <input type="text" name="host" id="host" required>
+        <button type="submit">Создать игру</button>
+    </form>
+    <p><a href="/join-game">Вернуться к выбору сессий</a></p>
+</body>
+</html>
